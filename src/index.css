@@ -1,0 +1,1313 @@
+:root {
+  --laLigaColor: #db433e;
+  --premierColor: #3d195b;
+  --serieAColor: #002aff;
+  --borderRadiusDefault: 15px;
+  --championsColor: linear-gradient(57deg, #0d3aff, #0c2ecf, #091770, #00004b);
+  --marginBlock: 2rem;
+  --paddingInline: 15vw;
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 90deg;
+  inherits: false;
+}
+
+::view-transition-image-pair {
+  animation-duration: 11s;
+  animation-timing-function: ease-in-out;
+}
+@font-face {
+  font-family: "clash-display-regular";
+  src: url("/public/ClashDisplay-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "clash-display-bold";
+  src: url("/public/ClashDisplay-Bold.ttf") format("opentype");
+}
+@font-face {
+  font-family: "clash-display-light";
+  src: url("/public/ClashDisplay-Light.otf") format("opentype");
+}
+.linkPlayers {
+  color: white;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+body {
+  background-color: #181818;
+  color: white;
+  font-family: "clash-display-regular";
+  scroll-behavior: smooth;
+}
+
+/* SKELETON CSS */
+.skeletonCardPlayer-container {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.linkBack {
+  color: white;
+  text-decoration: none;
+}
+/* HOME PAGE CSS */
+.matches-container {
+  grid-area: matches-container;
+}
+
+.all-players-container {
+  grid-area: all-players-container;
+}
+
+.league-containerBox {
+  grid-area: league-container;
+}
+
+.champions-container {
+  grid-area: champions-container;
+}
+.home-container {
+  display: grid;
+  grid-template-rows: 40vh 45vh 45vh;
+  grid-template-columns: 35fr 65fr;
+  gap: 2rem;
+  padding-inline: 12vw;
+  margin-block: 2rem;
+  grid-template-areas:
+    "matches-container matches-container"
+    "all-players-container league-container"
+    "all-players-container champions-container";
+}
+.matchContainer {
+  padding-inline: 12vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-block: 2rem;
+}
+.matches-container {
+  background-color: black;
+  width: 100%;
+  border-radius: var(--borderRadiusDefault);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 0.8px solid #343434;
+}
+.matches-container2 {
+  background-color: black;
+  width: 100%;
+  border-radius: var(--borderRadiusDefault);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 0.8px solid #343434;
+}
+
+.fade-bottom {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to top, #000000, transparent);
+  pointer-events: none;
+}
+.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-decoration: none;
+  color: transparent;
+  z-index: 10;
+  background-color: transparent;
+}
+.linkP {
+  color: white;
+  text-decoration: none;
+}
+.all-players-container {
+  position: relative;
+  border-radius: var(--borderRadiusDefault);
+  background-color: #000000;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  border: 0.8px solid #343434;
+  z-index: 1;
+  isolation: isolate;
+  transition: transform 0.3s ease;
+}
+
+.all-players-container:hover {
+  transform: scale(1.03);
+}
+
+@keyframes rotation {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+.border-allPlayers::before,
+.border-allPlayers::after {
+  content: "";
+  position: absolute;
+  inset: -0.1rem;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    #8c00ff72,
+    #7354ff,
+    #d427ff7d
+  );
+  border-radius: 15px;
+  z-index: -1;
+  animation:
+    rotation 4s linear infinite,
+    borderAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform: scale(0.95);
+}
+@keyframes borderAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.border-allPlayers::after {
+  filter: blur(2rem);
+}
+
+.picture-allPlayers {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Cambiado a contain para respetar el espacio transparente */
+  object-position: center bottom; /* Alinea desde abajo */
+  border-radius: var(--borderRadiusDefault);
+  position: absolute;
+  bottom: 0rem;
+  -webkit-transition: -webkit-filter 0.3s ease-in-out;
+  transition:
+    transform 0.6s ease,
+    filter 0.6s ease;
+  aspect-ratio: 9/16;
+  z-index: 15;
+}
+
+/* GRID ALLPLAYERS HOME CSS */
+.title-allPlayers {
+  display: flex;
+  flex-direction: column;
+  font-size: 2.5rem;
+  font-family: "clash-display-bold";
+  padding: 0rem 2rem;
+  color: #b5b5b5;
+}
+
+/* ALL PLAYERS PAGE CSS */
+.players-container {
+  padding-inline: 15vw;
+  padding-block: 2rem;
+}
+.players-container > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.filters-container {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0;
+  list-style: none;
+}
+/* CARD PLAYER COMPONENT CSS */
+
+.playerCard-container:hover .imgPlayerCard-container {
+  transform: scale(1.1);
+  box-shadow:
+    rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.imgPlayerCard-container {
+  background-color: white;
+  overflow: hidden;
+  height: 8rem;
+  width: 10rem;
+  border-radius: var(--borderRadiusDefault);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.5s ease;
+}
+.cardImg {
+  width: 100%;
+  height: 150%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  transition: transform 0.3s ease;
+}
+.lazy-load-wrapper {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.playersCards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.line {
+  margin-top: 2rem;
+}
+.playerCard-container {
+  width: 100%;
+  display: flex;
+  gap: 3rem;
+}
+.playerCard-container:hover {
+  cursor: pointer;
+}
+.stats_player_text {
+  font-size: 1.5rem;
+  font-family: "clash-display-bold";
+  margin: 0;
+}
+.data-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 3rem 3rem;
+  width: 100%;
+}
+.data-container > div,
+.data-container > p {
+  margin: 0;
+}
+.data_player > h4,
+.data_player > p {
+  margin: 0;
+}
+.data_player > p {
+  font-family: "clash-display-light";
+  font-size: 0.9rem;
+}
+.data_player > h4 {
+  font-size: 1.5rem;
+  font-family: "clash-display-bold";
+  margin-bottom: 0.5rem;
+}
+.stats_text {
+  font-size: 1.5rem;
+  font-family: "clash-display-bold";
+  margin: 0;
+}
+/* LEAGUES BOXES CSS */
+.league-containerBox {
+  max-width: 100%;
+  background-color: #000000;
+  border-radius: var(--borderRadiusDefault);
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  border: 0.8px solid #343434;
+  overflow: hidden;
+}
+.texture {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--borderRadiusDefault);
+  object-fit: cover;
+  z-index: 0;
+  mix-blend-mode: hard-light;
+  opacity: 6%;
+  transform: scale(4);
+  transform-origin: 1% 99%;
+}
+.league-containerBox > h2 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 2rem;
+  z-index: 1;
+  left: 2rem;
+  font-family: "clash-display-bold";
+  font-size: 2.5rem;
+  color: #d6d6d6ff;
+}
+.box-league-container {
+  padding: 2rem;
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  margin-top: 2.5rem;
+}
+.iconLeague {
+  width: 7rem;
+  height: 7rem;
+  transition: transform 0.3s ease-in-out;
+}
+.box-league-container:hover,
+.box-league-container:hover .iconLeague {
+  transform: scale(1.1);
+}
+.box-league-container:hover .iconLeague {
+  filter: drop-shadow(0 -2mm 2mm rgba(238, 238, 238, 0.488));
+}
+.La,
+.laLiga {
+  background-color: var(--laLigaColor);
+  transition:
+    box-shadow 35ms ease-in-out,
+    filter 0.3s ease-in-out;
+}
+.Premier {
+  background-color: var(--premierColor);
+  transition:
+    box-shadow 35ms ease-in-out,
+    filter 0.3s ease-in-out;
+}
+.laLigaLink:hover .laLiga {
+  filter: brightness(1.1);
+  box-shadow: inset 0 25px 25px #ff8983;
+}
+
+.laLigaLink,
+.premierLink {
+  text-decoration: none;
+  z-index: 1;
+}
+.premier {
+  background-color: var(--premierColor);
+  z-index: 1;
+}
+.premierLink:hover .premier {
+  filter: brightness(1.1);
+  box-shadow: inset 0 25px 25px #7918ca;
+}
+.serieA {
+  background-color: var(--serieAColor);
+  z-index: 1;
+}
+/* CHAMPIONS BOX CSS */
+.champions-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--championsColor);
+  border-radius: var(--borderRadiusDefault);
+  cursor: pointer;
+}
+.champions-container:hover img {
+  transform: scale(1.15);
+  filter: drop-shadow(0 -2mm 2mm rgba(176, 176, 176, 0.488));
+}
+.champions-container > img {
+  transition: all 0.3s ease;
+}
+/* PLAYER PAGE CSS */
+.header-player-container,
+.stats-container {
+  padding-inline: 15vw;
+  padding-block: 2rem;
+}
+header > article {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.img-container {
+  min-width: 15rem;
+  max-width: 15rem;
+  height: 15rem;
+  border-radius: var(--borderRadiusDefault);
+  background-color: hsl(0, 0%, 95%);
+  position: relative;
+  overflow: hidden;
+}
+.img-container > p {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 0.5rem;
+  right: 1rem;
+  font-family: "clash-display-bold";
+  font-size: 6rem;
+  color: transparent;
+  text-shadow:
+    0px 1px 5px rgb(230, 230, 230),
+    0 0 #0000005f,
+    2px 4px 5px #0000004e;
+  z-index: 1;
+}
+.cardImgDetail {
+  width: 100%;
+  height: 150%;
+  padding-top: 1rem;
+  object-fit: cover;
+  object-position: 75% 20%;
+  border-radius: var(--borderRadiusDefault);
+  z-index: 110;
+  position: relative;
+}
+.info-player {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.name-player-container {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.name-player-container > h2 {
+  font-size: 2.5rem;
+  font-family: "clash-display-bold";
+  padding: 0;
+  margin: 0;
+  max-width: 60%;
+}
+.icon-team {
+  width: 3rem;
+  height: 3rem;
+}
+.team-player-container {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+}
+.team-player-container > h4 {
+  font-size: 1.2rem;
+  padding-top: 0.3rem;
+}
+.info-player-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.info-player-container {
+  font-size: 1rem;
+}
+.info-player-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.info-player-container > p {
+  font-size: 1rem;
+  font-family: "clash-display-light";
+  margin: 0;
+}
+.info-player-container > p > span {
+  font-size: 1.5rem;
+  font-family: "clash-display-regular";
+  margin-left: 0.2rem;
+}
+.haeder-stats,
+.data-stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+.league-stats > header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+.header-league-title {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.champions-icon {
+  width: 8rem;
+}
+.laliga-icon {
+  width: 7rem;
+}
+.league-stats {
+  padding-inline: 2rem;
+  padding-block: 2.5rem;
+  border-radius: var(--borderRadiusDefault);
+  margin-bottom: 4rem;
+}
+.league-stats .laLiga {
+  background-color: var(--laLigaColor);
+}
+.Champions {
+  background: var(--championsColor);
+}
+.data-stats {
+  font-family: "clash-display-bold";
+  font-size: 1.8rem;
+  margin: 0;
+  padding: 0;
+}
+.data-stats > li {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.haeder-stats > li {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+.hiddenTitle {
+  display: none;
+}
+
+/* LEAGUE PAGE CSS */
+.table-team-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.table-team-logo {
+  width: 1.5rem;
+}
+.table-team-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr repeat(7, 1fr);
+  align-items: last baseline;
+}
+.league-container {
+  padding-inline: var(--paddingInline);
+  margin-block: var(--marginBlock);
+  display: grid;
+  grid-template-columns: 65% 35%;
+  grid-template-areas:
+    "header-league header-league"
+    "league-table-container next-matchs-container"
+    "topBoxLeague topBoxLeague";
+  gap: 2rem;
+}
+.title-table {
+  font-size: 1.5rem;
+  font-family: "clash-display-bold";
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.title-table > span {
+  font-size: 1rem;
+  font-family: "clash-display-regular";
+}
+.league-table-container {
+  background-color: #000000;
+  padding: 2rem;
+  border-radius: var(--borderRadiusDefault);
+}
+.points {
+  font-size: 1.2rem;
+  font-family: "clash-display-bold";
+}
+.header-league {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 2rem;
+  padding-block: 3rem;
+  border-radius: var(--borderRadiusDefault);
+}
+.header-league > div {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.header-league > div > img {
+  width: 15rem;
+}
+.laLiga-header {
+  background: linear-gradient(to right, var(--laLigaColor), #b22823);
+}
+.premier-header {
+  background: linear-gradient(to right, var(--premierColor), #7918ca);
+}
+.next-matchs-container {
+  width: 100%;
+  background-color: #000000;
+  height: max-content;
+  padding-bottom: 2rem;
+  padding: 1rem;
+  border-radius: var(--borderRadiusDefault);
+}
+.header-league {
+  grid-area: header-league;
+}
+.league-table-container {
+  grid-area: league-table-container;
+}
+.next-matchs-container {
+  grid-area: next-matchs-container;
+}
+.title-table {
+  padding: 0;
+  margin-bottom: 1rem;
+}
+.topBoxLeague-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+  grid-area: topBoxLeague;
+}
+.topBoxLeague {
+  background-color: #000000;
+  padding-block: 1rem;
+  border-radius: var(--borderRadiusDefault);
+  padding-inline: 0.5rem;
+}
+.img-playerTop {
+  width: 8rem;
+  height: 130%;
+  object-fit: cover;
+  object-position: 45% -10%;
+  z-index: 1;
+}
+.imgTopBox-container::before {
+  content: "";
+  background: linear-gradient(
+    to top,
+    black 5%,
+    rgba(0, 0, 0, 0.396) 30%,
+    rgba(0, 0, 0, 0)
+  ); /* Replace with your texture image path */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none; /* Ensures the texture doesn't interfere with interactions */
+}
+.imgTopBox-container {
+  max-height: 5rem;
+  overflow: hidden;
+  position: relative;
+}
+.displayTopBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.statsTopBox-container {
+  display: flex;
+  width: 55%;
+  justify-content: space-between;
+  align-items: center;
+}
+.score-h2 {
+  background-color: #d9d9d9;
+  color: black;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  min-width: 2.8rem;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: clash-display-bold;
+}
+.statsTopBox-container > h4 {
+  margin-left: -1.5rem;
+  font-size: 1rem;
+  z-index: 100;
+  font-family: clash-display-bold;
+}
+.maxScorer {
+  font-size: 1.8rem;
+  color: white; /* Esto será transparente */
+  box-shadow:
+    inset 0 4px 8px rgba(10, 15, 100, 0.5),
+    inset 0 -4px 8px rgba(255, 208, 120, 1),
+    0px 4px 4px #be99062e;
+  background: linear-gradient(to top, #8d6c00 2%, #2015f0);
+}
+.text-top {
+  background-image: radial-gradient(circle at center, #ffe5a3, #ffb800);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.18);
+}
+.topBoxLeague-container > article > h2 {
+  font-family: clash-display-bold;
+}
+
+/* MATCHES PAGE CSS */
+
+.matchesCard-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 40vw 8vw 40vw;
+  align-items: center;
+  gap: 2vw;
+  position: relative;
+  cursor: pointer;
+  transition:
+    scale 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.matchesCard-container:hover {
+  scale: 1.02;
+}
+.SecondMatch {
+  background-color: #0d0d0d;
+  cursor: pointer;
+}
+/* .SecondMatch:hover, .firstMatch:hover {
+  box-shadow: inset 0 -15px 45px #31005783;
+} */
+.logo-matchCard {
+  max-width: 5rem;
+  max-height: 5rem;
+}
+.home-team-name-container {
+  justify-content: end;
+}
+.team-name-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+.score-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 25px;
+  color: #000000;
+  height: min-content;
+  padding-block: 0.5rem;
+  gap: 0.5rem;
+}
+.score-container > h2 {
+  font-size: 2rem;
+  font-family: "clash-display-bold";
+  margin: 0;
+  padding: 0;
+}
+.matchPage-container {
+  padding-inline: var(--paddingInline);
+  padding-block: var(--marginBlock);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.box-header-match {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  background-color: #000000;
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
+  border-radius: var(--borderRadiusDefault);
+}
+.header-logo-match {
+  width: 10rem;
+  height: 10rem;
+}
+.box-header-match > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: end;
+}
+.box-header-match > div:nth-child(3) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.header-match-team > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+}
+.header-Match-TeamNames {
+  font-size: 2rem;
+  font-family: "clash-display-bold";
+}
+.box-header-match > div > div > h4 {
+  padding: 0;
+  margin: 0;
+}
+.box-header-match > div > h2 {
+  text-align: center;
+  font-size: 5rem;
+  font-family: "clash-display-bold";
+  padding-block: 1rem;
+  background-color: var(--laLigaColor);
+  border-radius: var(--borderRadiusDefault);
+  width: 100%;
+}
+.stadium-match {
+  position: absolute;
+  top: 0px;
+  text-align: center;
+  width: 100%;
+}
+.stadium-match > p {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  font-family: "clash-display-light";
+}
+.stadium-match > h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+  font-family: "clash-display-bold";
+}
+.score-matchPage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.headerGoals {
+  position: absolute;
+  bottom: 0;
+}
+.awayHeaderGoals {
+  right: 0;
+  width: 30%;
+}
+.homeHeaderGoals {
+  left: 0;
+  width: 30%;
+}
+/* LINEUPS CSS */
+.lineups-container {
+  padding-block: 1rem;
+  position: relative;
+  background-color: #00954c;
+  border-radius: var(--borderRadiusDefault);
+}
+.area1-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+}
+.area1-content {
+  width: 50%;
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-end-end-radius: 15px;
+  border-end-start-radius: 15px;
+  height: 100%;
+}
+.area2-container {
+  position: absolute;
+  bottom: 2px;
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+}
+.area2-content {
+  width: 50%;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-start-end-radius: 15px;
+  border-start-start-radius: 15px;
+  height: 100%;
+}
+.img-lineup-card {
+  width: 8rem;
+}
+/* FORMATION CSS */
+.formation-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(6, auto);
+  border-radius: 8px;
+  gap: 1rem;
+}
+.slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slot-empty {
+  background: transparent;
+}
+.lineup-card-player {
+  position: relative;
+  z-index: 150;
+}
+.lineup-card-player > h4 {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  margin-top: -1rem;
+  z-index: 200;
+  padding: 0;
+  font-size: 1.2rem;
+  font-family: "clash-display-bold";
+}
+.imgContainer-lineup-card-player {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.imgContainer-lineup-card-player::before {
+  content: "";
+  background: linear-gradient(
+    to top,
+    #00954c 10%,
+    #01894554 25%,
+    #02804100 35%
+  );
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+.name-player-lineup {
+  margin-top: 10rem;
+}
+.stats-match-container {
+  position: absolute;
+  right: -0.5rem;
+  top: 3rem;
+  z-index: 1000;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+.rating-match-container > h2 {
+  margin: 0;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  height: 3rem;
+  font-size: 1.3rem;
+  align-items: center;
+  font-family: "clash-display-bold";
+}
+.rating-low {
+  border-radius: 30px;
+  background-color: red;
+}
+.rating-medium {
+  border-radius: 30px;
+  background-color: #ffa600;
+}
+.rating-high {
+  border-radius: 30px;
+  background-color: #2015f0;
+}
+.rating-perfect {
+  color: white; /* Esto será transparente */
+  box-shadow:
+    inset 0 4px 8px rgba(10, 15, 100, 0.5),
+    inset 0 -4px 8px rgba(255, 208, 120, 1),
+    0px 4px 4px #be99062e;
+  background: linear-gradient(to top, #8d6c00 2%, #2015f0);
+  border-radius: 30px;
+}
+.text-perfect {
+  background-image: radial-gradient(circle at center, #ffe5a3, #ffb800);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.18);
+}
+.yellowCard {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+}
+.soccerBall {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+}
+.goal-container {
+  position: absolute;
+  margin-top: 1rem;
+  left: -0.5rem;
+}
+.goal-number {
+  position: absolute;
+  top: -0.3rem;
+  left: 0.3rem;
+  font-size: 1.2rem;
+  font-family: "clash-display-bold";
+  background-color: #2015f0;
+  padding-block: 0.2rem;
+  padding-inline: 0.5rem;
+  border-radius: 50%;
+}
+/* SLIDER */
+.slider-match-container {
+  display: flex;
+  border-radius: var(--borderRadiusDefault);
+}
+.slider-container {
+  width: 50%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: "clash-display-bold";
+  color: #ffffff57;
+  background-color: #000000;
+  cursor: pointer;
+}
+.slider-active {
+  background-color: #2015f0;
+  color: white;
+}
+.activeRigth {
+  border-radius: 0 15px 15px 0;
+}
+.activeLeft {
+  border-radius: 15px 0 0 15px;
+}
+.slider-offL {
+  border-radius: 15px 0 0 15px;
+}
+.slider-offR {
+  border-radius: 0 15px 15px 0;
+}
+.match-stats-container {
+  display: flex;
+  justify-content: space-between;
+}
+.match-stats-middle {
+  text-align: center;
+  display: grid;
+  grid-template-rows: 8rem repeat(2, 1fr);
+}
+.stats-team-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.team-stats-logo {
+  width: 8rem;
+  height: 8rem;
+}
+.title-statiscs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "clash-display-bold";
+  font-size: 2rem;
+}
+.stats-team-container > ul > li {
+  font-family: "clash-display-bold";
+}
+.stats-team-container > ul {
+  display: grid;
+  grid-template-rows: repeat(7, 3rem);
+  margin-top: 2rem;
+}
+.match-stats-middle > ul {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-rows: repeat(7, 3rem);
+}
+
+.status-container {
+  position: absolute;
+  display: flex;
+  gap: 1rem;
+  right: 1rem;
+  top: 1rem;
+  align-items: center;
+}
+.match-time {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.finished-tag,
+.live-tag,
+.scheduled-tag {
+  padding: 0.5rem 0.8rem;
+  border-radius: 40px;
+}
+.finished-tag {
+  background-color: rgb(71, 71, 71);
+}
+.live-tag {
+  background-color: #ff0000;
+}
+.scheduled-tag {
+  background-color: #8c00ff72;
+}
+.league-icon,
+.liga-icon-match {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+}
+.league-liga-icon-match {
+  width: 5.5rem;
+}
+.league-premier-icon-match {
+  width: 2.5rem;
+}
+.premier-icon {
+  width: 10rem;
+}
+.liga-icon-match {
+  color: var(--laLigaColor);
+  fill: var(--laLigaColor);
+}
+.allGamesBtn {
+  background: linear-gradient(57deg, #0d3aff, #7f009e);
+  box-shadow:
+    inset 0 4px 10px #0a053db7,
+    inset 0 -2px 10px #d83affab;
+  padding: 0.8rem 1.5rem;
+  color: white;
+  font-family: "clash-display-regular";
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+.allGamesBtn:hover {
+  box-shadow:
+    inset 0 5px 10px #0a053db4,
+    inset 0 -5px 10px #d83affab;
+}
+.allGamesBtn2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(57deg, #0d3aff, #7f009e);
+  box-shadow:
+    inset 0 4px 10px #0a053db7,
+    inset 0 -2px 10px #d83affab;
+  color: white;
+  font-family: "clash-display-regular";
+  border-radius: 50px;
+  font-size: 2rem;
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+.allGamesBtn2:hover {
+  box-shadow:
+    inset 0 5px 10px #0a053db4,
+    inset 0 -5px 10px #d83affab,
+    rgba(0, 0, 0, 0.16) 0px 3px 6px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+/* .allGamesBtn:active {
+  box-shadow: inset 5px 12px 20px #0a053db4, inset 0 -5px 10px #0a053db4;
+  transition: box-shadow 0.1s ease-in-out;
+} */
+.allGamesBtnContainer {
+  position: absolute;
+  right: 6vw;
+  z-index: 10;
+  bottom: 54vh;
+}
+.retornBtnContainer {
+  position: absolute;
+  left: 6vw;
+  z-index: 10;
+  top: 6vh;
+}
+.invisible {
+  display: none;
+}
+.searchMatchesInput {
+  padding: 0.8rem 1rem;
+  border-radius: var(--borderRadiusDefault);
+  font-family: "clash-display-regular";
+  font-size: 1.2rem;
+  background-color: #0d0d0d;
+  border: 0.8px solid #343434;
+  color: white;
+}
+.searchMatchesInput::placeholder {
+  color: #ffffff43;
+  font-size: 1.1rem;
+}
+.searchMatchesInput:focus {
+  outline: none;
+  border: 1px solid #7354ff84;
+  box-shadow:
+    rgba(0, 0, 0, 0.09) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.next-match-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: space-between;
+}
+.vs-league{
+  text-align: center;
+}
+.next-match {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 0.9rem;
+  gap: 1rem;
+  align-items: center;
+}
+.team-nextMatch {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+.team-nextMatch > img {
+  width: 2rem;
+}
