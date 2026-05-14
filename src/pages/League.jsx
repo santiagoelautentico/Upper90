@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import TeamLeagueTable from "../components/%eamLeagueTable";
+import TeamLeagueTable from "../components/TeamLeagueTable";
 import TopBoxLeague from "../components/TopBoxLeague";
 
 const League = () => {
