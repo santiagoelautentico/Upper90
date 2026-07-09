@@ -1,4 +1,4 @@
-import BoxLeague from "../components/BoxLeague";
+import BoxLeague from "../components/boxLeague";
 import MatchesCard from "../components/MatchesCard";
 import PixelBlast from "../components/PixelBlast";
 import ShinyText from "../components/ShinyText";
