@@ -12,8 +12,10 @@ const Match = () => {
   const [slider, setSlider] = useState("lineup");
   const { id } = useParams();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    fetch(`http://localhost:1234/match/${id}`)
+    fetch(`${API_URL}/match/${id}`)
       .then((response) => response.json())
       .then((data) => {
         const matchData = data[0];
@@ -23,21 +25,20 @@ const Match = () => {
   }, [id]);
 
   useEffect(() => {
-    fetch(`http://localhost:1234/match/${id}/lineups`)
+    fetch(`${API_URL}/match/${id}/lineups`)
       .then((response) => response.json())
       .then((data) => {
         setLineups(data);
+        console.log(data, "lineups raw");
       });
   }, [id]);
-
-  
 
   useEffect(() => {
     if (!match.homeTeamId || !match.awayTeamId) return;
 
     const fetchStats = async (teamId, setStats) => {
       const res = await fetch(
-        `http://localhost:1234/match/${id}/stats/${teamId}`
+        `${API_URL}/${id}/stats/${teamId}`,
       );
       const data = await res.json();
       setStats(data);
@@ -49,18 +50,21 @@ const Match = () => {
   console.log(matchStatsAway, "matchStatsHome");
 
   const startingH = lineups.filter(
-    (lineup) => lineup.isStarting === 1 && lineup.teamId === match.homeTeamId
+    (lineup) => lineup.isStarting === 1 && lineup.teamId === match.homeTeamId,
   );
   const startingA = lineups.filter(
-    (lineup) => lineup.isStarting === 1 && lineup.teamId === match.awayTeamId
+    (lineup) => lineup.isStarting === 1 && lineup.teamId === match.awayTeamId,
   );
 
+  console.log("match final:", match.homeTeamId, match.awayTeamId);
+  console.log("startingH:", startingH.length, "startingA:", startingA.length);
+
   useEffect(() => {
-  if (!match.homeTeamId || !match.awayTeamId) {
-    console.log("No hay team IDs aún");
-    return;
-  }
-}, [match.homeTeamId, match.awayTeamId]);
+    if (!match.homeTeamId || !match.awayTeamId) {
+      console.log("No hay team IDs aún");
+      return;
+    }
+  }, [match.homeTeamId, match.awayTeamId]);
   return (
     <section className="matchPage-container">
       {matchStatsHome && matchStatsAway ? (

@@ -21,17 +21,20 @@ const League = () => {
   const params = new URLSearchParams(window.location.search);
   const leagueId = Number(params.get("league"));
   const leagueName = leagueMap[Number(id)];
+  const [season, setSeason] = useState("25/26");
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:1234/tableLeague/${id}`)
+    fetch(`${API_URL}/tableLeague/${id}?season=${season}`)
       .then((response) => response.json())
       .then((data) => {
         setTeams(data);
         console.log(data);
       });
-  }, [id]);
+  }, [id, season]);
   useEffect(() => {
-    fetch("http://localhost:1234/matches")
+    fetch(`${API_URL}/matches`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -43,9 +46,8 @@ const League = () => {
         setMatch(activeMatches);
       });
   }, [id]);
-
   useEffect(() => {
-    fetch(`http://localhost:1234/league/${id}`)
+    fetch(`${API_URL}/league/${id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data, "league");
@@ -54,18 +56,24 @@ const League = () => {
   }, [id]);
 
   useEffect(() => {
-    fetch(`http://localhost:1234/topPlayersLeague/${id}`)
+    const seasonQuery = season === "25/26" ? "2025/26" : "2026/27";
+
+    fetch(`${API_URL}/topPlayersLeague/${id}?season=${seasonQuery}`)
       .then((response) => response.json())
       .then((data) => {
         setPlayerStats(data);
+        console.log(data, "top players");
       });
-  }, [id]);
+  }, [id, season]);
 
   const topByGoals = [...playerStats]
     .sort((a, b) => b.goals - a.goals)
     .slice(0, 3);
   const topByAssists = [...playerStats]
     .sort((a, b) => b.assists - a.assists)
+    .slice(0, 3);
+  const topCleanSheets = [...playerStats]
+    .sort((a, b) => b.clean_sheets - a.clean_sheets)
     .slice(0, 3);
 
   console.log(match, "pepino");
@@ -76,7 +84,14 @@ const League = () => {
         <header className="header-league laLiga-header">
           <div>
             <img src="/public/laligahorizontallogo.svg" alt="LaLiga EA SPORT" />
-            <p>{league.current_season}</p>
+            <select
+              className="season-select-laLiga"
+              value={season}
+              onChange={(e) => setSeason(e.target.value)}
+            >
+              <option value="26/27">Season 26/27</option>
+              <option value="25/26">Season 25/26</option>
+            </select>
           </div>
           <img src="/laligaIcon.svg" alt="icono laLiga" />
         </header>
@@ -87,7 +102,14 @@ const League = () => {
               src="/public/premierLeagueLogoHorizontal.svg"
               alt="Premier League"
             />
-            <p>{league.current_season}</p>
+            <select
+              className="season-select-premier"
+              value={season}
+              onChange={(e) => setSeason(e.target.value)}
+            >
+              <option value="26/27">Season 26/27</option>
+              <option value="25/26">Season 25/26</option>
+            </select>
           </div>
           <img src="/premierIcon.svg" alt="icono Premier League" />
         </header>
@@ -95,11 +117,11 @@ const League = () => {
       <article className="league-table-container">
         {id == "1" ? (
           <h3 className="title-table">
-            Table LaLiga EA SPORT <span>Seasson 24/25</span>
+            Table LaLiga EA SPORT <span>Season {season}</span>
           </h3>
         ) : (
           <h3 className="title-table">
-            Table Premier League <span>Seasson 24/25</span>
+            Table Premier League <span>Season {season}</span>
           </h3>
         )}
         {teams.slice(0, numberTeamsLeague).map((team) => (
@@ -122,7 +144,7 @@ const League = () => {
         ) : null}
       </article>
       <article className="next-matchs-container">
-      <h4>Next matches</h4>
+        <h4>Next matches</h4>
         <div className="next-match-container">
           {match.map((match) => (
             <div className="next-match">
@@ -159,8 +181,8 @@ const League = () => {
         <article>
           <h2>TOP CLEAN SHEETS</h2>
           <div className="topBoxLeague">
-            {playerStats.slice(0, 3).map((player, index) => (
-              <TopBoxLeague player={player} title="goals" index={index} />
+            {topCleanSheets.map((player, index) => (
+              <TopBoxLeague player={player} title="Clean" index={index} />
             ))}
           </div>
         </article>

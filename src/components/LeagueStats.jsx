@@ -27,7 +27,7 @@ const LeagueStats = ({ data, title }) => {
           ) : ""}
           <h3 className="hiddenTitle">{title}</h3>
         </div>
-        <span>Seasson 24/25</span>
+        <span>Seasson 26/27</span>
       </header>
       <div className="stats-league">
         <ul className="haeder-stats">

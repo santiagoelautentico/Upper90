@@ -2,11 +2,14 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-export const optimizeImage = (url, width = 300) => {
+export const optimizeImage = (url, size = 100) => {
   if (!url) return "/placeholder-player.png";
-  return `https://images.weserv.nl/?url=${encodeURIComponent(
-    url
-  )}&w=${width}&output=webp`;
+
+  // Inserta la transformación de Cloudinary justo después de "/upload/"
+  return url.replace(
+    "/upload/",
+    `/upload/w_${size},h_${size},c_fill,f_auto,q_auto/`
+  );
 };
 
 const CardPlayer = ({ player }) => {
@@ -16,11 +19,9 @@ const CardPlayer = ({ player }) => {
         <div className="imgPlayerCard-container">
           <LazyLoadImage
             className="cardImg"
-            loading="lazy"
-            wrapperClassName="lazy-load-wrapper"
             src={optimizeImage(player.picture_url, 300)}
             alt={player.surname}
-            effect="blur"
+            
           />
         </div>
         <div className="data-container">

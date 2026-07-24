@@ -16,6 +16,8 @@ const Home = () => {
 
   console.log(match, "match in home");
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -23,7 +25,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:1234/matches")
+    fetch(`${API_URL}/matches`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

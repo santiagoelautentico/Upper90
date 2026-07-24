@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const TopBoxLeague = ({ player, title, index }) => {
   console.log(title);
-  console.log(player,'try');
+  console.log(player, "try");
 
   return (
     <Link to={`/players/${player.player_id}`} className="displayTopBox linkP">
@@ -24,6 +24,12 @@ const TopBoxLeague = ({ player, title, index }) => {
           </h2>
         ) : title === "assists" ? (
           <h2 className="score-h2">{player.assists}</h2>
+        ) : title === "Clean" && index === 0 ? (
+          <h2 className="score-h2 maxScorer">
+            <span className="text-top">{player.clean_sheets}</span>
+          </h2>
+        ) : title === "Clean" ? (
+          <h2 className="score-h2">{player.clean_sheets}</h2>
         ) : null}
       </div>
     </Link>

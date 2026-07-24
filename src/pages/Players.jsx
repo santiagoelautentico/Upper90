@@ -6,7 +6,9 @@ import { motion } from "motion/react";
 
 const Players = () => {
   const [players, setPlayers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [season, setSeason] = useState("2026/27");
+  const [searchPlayer, setSearchPlayer] = useState("");
 
   useEffect(() => {
     window.scrollTo({
@@ -14,8 +16,10 @@ const Players = () => {
     });
   }, []);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    fetch("http://localhost:1234/playersCards")
+    fetch(`${API_URL}/playersCards?season=${season}&playerName=${searchPlayer}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -23,15 +27,15 @@ const Players = () => {
         setIsLoading(false);
         console.log(data, "players data");
       });
-  }, []);
+  }, [season, searchPlayer]);
 
   const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, 
-        delayChildren: 0.2, 
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
       },
     },
   };
@@ -42,7 +46,7 @@ const Players = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.4, 
+        duration: 0.4,
         ease: "easeOut",
       },
     },
@@ -55,19 +59,31 @@ const Players = () => {
           Back
         </Link>
         <ul className="filters-container">
-          <h4>Filters</h4>
-          <li>League</li>
-          <li>Team</li>
-          <li>Position</li>
-          <li>Stats</li>
-          <li>Market Value</li>
+          <li>
+            <select className="select" onChange={(e) => setSeason(e.target.value)}>
+              <option value="" disabled selected hidden>
+                Current Season
+              </option>
+              <option value="2026/27">2026/27</option>
+              <option value="2025/26">2025/26</option>
+            </select>
+          </li>
+          <li>
+            <input
+              type="text"
+              placeholder="Search player..."
+              value={searchPlayer}
+              onChange={(e) => setSearchPlayer(e.target.value)}
+              className="inputSearchPlayer"
+            />
+          </li>
         </ul>
       </header>
       <section className="playersCards-container">
         {isLoading ? (
           <SkeletonCardPlayer cards={20} />
         ) : (
-          <motion.ul variants={container} initial="hidden" animate="visible" >
+          <motion.ul variants={container} initial="hidden" animate="visible">
             {players.map((player) => (
               <motion.li key={player.player_id} variants={item}>
                 <Link
