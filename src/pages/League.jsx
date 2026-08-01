@@ -83,7 +83,7 @@ const League = () => {
       {id === "1" ? (
         <header className="header-league laLiga-header">
           <div>
-            <img src="/public/laligahorizontallogo.svg" alt="LaLiga EA SPORT" />
+            <img src="/laligahorizontallogo.svg" alt="LaLiga EA SPORT" />
             <select
               className="season-select-laLiga"
               value={season}
@@ -99,7 +99,7 @@ const League = () => {
         <header className="header-league premier-header">
           <div>
             <img
-              src="/public/premierLeagueLogoHorizontal.svg"
+              src="/premierLeagueLogoHorizontal.svg"
               alt="Premier League"
             />
             <select
