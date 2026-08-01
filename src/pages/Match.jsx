@@ -38,7 +38,7 @@ const Match = () => {
 
     const fetchStats = async (teamId, setStats) => {
       const res = await fetch(
-        `${API_URL}/${id}/stats/${teamId}`,
+        `${API_URL}/match/${id}/stats/${teamId}`,
       );
       const data = await res.json();
       setStats(data);
