@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import CardPlayer from "../components/CardPlayer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SkeletonCardPlayer from "../components/SkeletonCardPlayer";
 import { motion } from "motion/react";
 import { AnimatePresence } from "framer-motion";
@@ -11,8 +11,8 @@ const Players = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [season, setSeason] = useState("2026/27");
   const [searchPlayer, setSearchPlayer] = useState("");
-    const [clickedBtnMatches, setClickedBtnMatches] = useState(false);
-
+  const [clickedBtnMatches, setClickedBtnMatches] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo({
@@ -63,27 +63,17 @@ const Players = () => {
           Back
         </Link> */}
         <div className="retornBtnContainer">
-          <AnimatePresence>
-            {clickedBtnMatches && (
-              <motion.button
-                className="allGamesBtn2"
-                onClick={() => {
-                  navegate(-1);
-                }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.9, y: 2 }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                initial={{ opacity: 1, y: 0 }}
-                exit={{
-                  opacity: 0,
-                  y: -20,
-                  transition: { duration: 0.3 },
-                }}
-              >
-                <AiFillCaretLeft />
-              </motion.button>
-            )}
-          </AnimatePresence>
+          <motion.button
+            className="allGamesBtn2"
+            onClick={() => navigate(-1)}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.9, y: 2 }}
+            transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <AiFillCaretLeft />
+          </motion.button>
         </div>
         <ul className="filters-container">
           <li>
