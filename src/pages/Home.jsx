@@ -219,7 +219,7 @@ const Home = () => {
             />
           </Link>
           <BoxLeague league="/serieAIcon.svg" classContainer="serieA" id="3" />
-          <img src="../../public/texture.jpg" alt="" className="texture" />
+          <img src="/texture.jpg" alt="" className="texture" />
         </div>
         <div
           className={`${clickedBtnMatches ? "invisible" : "champions-container"}`}
