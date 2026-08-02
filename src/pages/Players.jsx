@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import CardPlayer from "../components/CardPlayer";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SkeletonCardPlayer from "../components/SkeletonCardPlayer";
 import { motion } from "motion/react";
 import { AnimatePresence } from "framer-motion";
 import { AiFillCaretLeft } from "react-icons/ai";
 
 const Players = () => {
-  const navigate = useNavigate();
   const [players, setPlayers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [season, setSeason] = useState("2026/27");
@@ -56,18 +55,19 @@ const Players = () => {
   };
 
   return (
-    <>
-      <section className="players-container">
-        <header>
-          {/* <Link to={"/"} className="linkBack">
+    <section className="players-container">
+      <header>
+        {/* <Link to={"/"} className="linkBack">
           Back
         </Link> */}
-          <div className="retornBtnContainer">
-            <AnimatePresence>
+        <div className="retornBtnContainer">
+          <AnimatePresence>
+            {clickedBtnMatches && (
               <motion.button
-                type="button"
                 className="allGamesBtn2"
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  navegate(-1);
+                }}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.9, y: 2 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -80,52 +80,52 @@ const Players = () => {
               >
                 <AiFillCaretLeft />
               </motion.button>
-            </AnimatePresence>
-          </div>
-          <ul className="filters-container">
-            <li>
-              <select
-                className="select"
-                onChange={(e) => setSeason(e.target.value)}
-              >
-                <option value="" disabled selected hidden>
-                  Current Season
-                </option>
-                <option value="2026/27">2026/27</option>
-                <option value="2025/26">2025/26</option>
-              </select>
-            </li>
-            <li>
-              <input
-                type="text"
-                placeholder="Search player..."
-                value={searchPlayer}
-                onChange={(e) => setSearchPlayer(e.target.value)}
-                className="inputSearchPlayer"
-              />
-            </li>
-          </ul>
-        </header>
-        <section className="playersCards-container">
-          {isLoading ? (
-            <SkeletonCardPlayer cards={20} />
-          ) : (
-            <motion.ul variants={container} initial="hidden" animate="visible">
-              {players.map((player) => (
-                <motion.li key={player.player_id} variants={item}>
-                  <Link
-                    to={`/players/${player.player_id}`}
-                    className="linkPlayers"
-                  >
-                    <CardPlayer player={player} />
-                  </Link>
-                </motion.li>
-              ))}
-            </motion.ul>
-          )}
-        </section>
+            )}
+          </AnimatePresence>
+        </div>
+        <ul className="filters-container">
+          <li>
+            <select
+              className="select"
+              onChange={(e) => setSeason(e.target.value)}
+            >
+              <option value="" disabled selected hidden>
+                Current Season
+              </option>
+              <option value="2026/27">2026/27</option>
+              <option value="2025/26">2025/26</option>
+            </select>
+          </li>
+          <li>
+            <input
+              type="text"
+              placeholder="Search player..."
+              value={searchPlayer}
+              onChange={(e) => setSearchPlayer(e.target.value)}
+              className="inputSearchPlayer"
+            />
+          </li>
+        </ul>
+      </header>
+      <section className="playersCards-container">
+        {isLoading ? (
+          <SkeletonCardPlayer cards={20} />
+        ) : (
+          <motion.ul variants={container} initial="hidden" animate="visible">
+            {players.map((player) => (
+              <motion.li key={player.player_id} variants={item}>
+                <Link
+                  to={`/players/${player.player_id}`}
+                  className="linkPlayers"
+                >
+                  <CardPlayer player={player} />
+                </Link>
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
       </section>
-    </>
+    </section>
   );
 };
 

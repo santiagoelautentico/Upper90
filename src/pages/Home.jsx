@@ -40,30 +40,6 @@ const Home = () => {
       <section
         className={`${clickedBtnMatches ? "matchContainer" : "home-container"}`}
       >
-        <AnimatePresence>
-          <motion.div className="allGamesBtnContainer">
-            {!clickedBtnMatches && (
-              <motion.button
-                className="allGamesBtn"
-                onClick={() => {
-                  setMatchesLoaded(matchesLoaded + 100);
-                  setClickedBtnMatches(true);
-                }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.9, y: 2 }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                initial={{ opacity: 1, y: 0 }}
-                exit={{
-                  opacity: 0,
-                  y: -20,
-                  transition: { duration: 0.3 },
-                }}
-              >
-                All Games
-              </motion.button>
-            )}
-          </motion.div>
-        </AnimatePresence>
         <div className="retornBtnContainer">
           <AnimatePresence>
             {clickedBtnMatches && (
@@ -97,19 +73,50 @@ const Home = () => {
               transition={{ duration: 0.3 }}
               className="matches-container"
             >
-              {match.slice(0, matchesLoaded).map((match, index) => (
-                <motion.div key={match.matchId}>
-                  <Link to={`/matches/${match.matchId}`} className="linkP">
-                    <MatchesCard
-                      match={match}
-                      backgroundColor={
-                        index % 2 === 0 ? "firstMatch" : "SecondMatch"
-                      }
-                    />
-                  </Link>
+              <AnimatePresence>
+                <motion.div className="allGamesBtnContainer">
+                  {!clickedBtnMatches && (
+                    <motion.button
+                      className="allGamesBtn"
+                      onClick={() => {
+                        setMatchesLoaded(matchesLoaded + 100);
+                        setClickedBtnMatches(true);
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.9, y: 2 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 15,
+                      }}
+                      initial={{ opacity: 1, y: 0 }}
+                      exit={{
+                        opacity: 0,
+                        y: -20,
+                        transition: { duration: 0.3 },
+                      }}
+                    >
+                      All Games
+                    </motion.button>
+                  )}
                 </motion.div>
-              ))}
-              <div className="fade-bottom"></div>
+              </AnimatePresence>
+
+              <div className="matches-scroll">
+                {match.slice(0, matchesLoaded).map((match, index) => (
+                  <motion.div key={match.matchId}>
+                    <Link to={`/matches/${match.matchId}`} className="linkP">
+                      <MatchesCard
+                        match={match}
+                        backgroundColor={
+                          index % 2 === 0 ? "firstMatch" : "SecondMatch"
+                        }
+                      />
+                    </Link>
+                  </motion.div>
+                ))}
+                <div className="fade-bottom"></div>
+              </div>
             </motion.article>
           ) : (
             <>
@@ -156,6 +163,44 @@ const Home = () => {
             </>
           )}
         </AnimatePresence>
+        {/* <div className="matches-wrapper">
+          <motion.article className="matches-container">
+            {match.slice(0, matchesLoaded).map((match, index) => (
+              <motion.div key={match.matchId}>
+                <Link to={`/matches/${match.matchId}`} className="linkP">
+                  <MatchesCard
+                    match={match}
+                    backgroundColor={
+                      index % 2 === 0 ? "firstMatch" : "SecondMatch"
+                    }
+                  />
+                </Link>
+              </motion.div>
+            ))}
+            <div className="fade-bottom"></div>
+          </motion.article>
+
+          <AnimatePresence>
+            {!clickedBtnMatches && (
+              <motion.div className="allGamesBtnContainer">
+                <motion.button
+                  className="allGamesBtn"
+                  onClick={() => {
+                    setMatchesLoaded(matchesLoaded + 100);
+                    setClickedBtnMatches(true);
+                  }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.9, y: 2 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  initial={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
+                >
+                  All Games
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div> */}
 
         <AnimatePresence initial={false}>
           {!clickedBtnMatches ? (
