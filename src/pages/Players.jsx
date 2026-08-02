@@ -11,6 +11,8 @@ const Players = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [season, setSeason] = useState("2026/27");
   const [searchPlayer, setSearchPlayer] = useState("");
+    const [clickedBtnMatches, setClickedBtnMatches] = useState(false);
+
 
   useEffect(() => {
     window.scrollTo({
