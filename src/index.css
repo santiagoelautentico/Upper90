@@ -74,7 +74,7 @@ body {
 }
 .home-container {
   display: grid;
-  grid-template-rows: 40vh 45vh 45vh;
+  grid-template-rows: 18rem 23rem 23rem;
   grid-template-columns: 35fr 65fr;
   gap: 2rem;
   padding-inline: 12vw;
