@@ -67,12 +67,17 @@ const League = () => {
   }, [id, season]);
 
   const topByGoals = [...playerStats]
+    .filter((p) => p.goals > 0)
     .sort((a, b) => b.goals - a.goals)
     .slice(0, 3);
+
   const topByAssists = [...playerStats]
+    .filter((p) => p.assists > 0)
     .sort((a, b) => b.assists - a.assists)
     .slice(0, 3);
+
   const topCleanSheets = [...playerStats]
+    .filter((p) => p.clean_sheets > 0)
     .sort((a, b) => b.clean_sheets - a.clean_sheets)
     .slice(0, 3);
 
@@ -98,10 +103,7 @@ const League = () => {
       ) : id === "2" ? (
         <header className="header-league premier-header">
           <div>
-            <img
-              src="/premierLeagueLogoHorizontal.svg"
-              alt="Premier League"
-            />
+            <img src="/premierLeagueLogoHorizontal.svg" alt="Premier League" />
             <select
               className="season-select-premier"
               value={season}

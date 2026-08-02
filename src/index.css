@@ -1311,6 +1311,7 @@ header > article {
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  width: fit-content;
 }
 .team-nextMatch > img {
   width: 2rem;
@@ -1398,4 +1399,23 @@ header > article {
     inset 0 2px 15px #7118BC,
     inset 0 -5px 10px #7118BC;
   border: 1px solid #8721da;
+}
+
+.dither-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+.backgroudTexture{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.upper90icon{
+  position: fixed;
+  top: 2.5rem;
+  right: 1rem;
+  width: clamp(5rem, 10vw, 200px);
 }

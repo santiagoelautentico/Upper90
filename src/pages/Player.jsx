@@ -18,7 +18,7 @@ const Player = () => {
         setPlayer(data);
       });
 
-    fetch(`${API_URL}/playerStats/${id}/league`)
+    fetch(`${API_URL}/playerStats/${id}/league?season=2026/27`)
       .then((response) => response.json())
       .then((dataLeague) => {
         setDataLeague(dataLeague[0]);

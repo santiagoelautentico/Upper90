@@ -40,11 +40,11 @@ const LeagueStats = ({ data, title }) => {
         </ul>
         <ul className="data-stats">
           <li>{data?.goals ?? 0}</li>
-          <li>{data.assists}</li>
+          <li>{data.assists ?? 0}</li>
           <li>{data.yellow_cards ?? 0}</li>
-          <li>{data.red_cards}</li>
-          <li>{data.matches_played}</li>
-          <li>{data.minutes_played}</li>
+          <li>{data.red_cards ?? 0}</li>
+          <li>{data.matches_played ?? 0}</li>
+          <li>{data.minutes_played ?? 0}</li>
         </ul>
       </div>
     </article>
